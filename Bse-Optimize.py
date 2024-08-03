@@ -92,4 +92,4 @@ n['marketCapFull'] = n['marketCapFull'].apply(regex_replace_example)
 # Save the result to a new CSV file
 n.to_csv(r"C:\Users\sumeet\Desktop\LargeDeals\MarketCap\TotalMcap.csv", index=False)
 
-#hello
+#hellohi
