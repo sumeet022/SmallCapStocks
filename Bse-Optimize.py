@@ -2,10 +2,20 @@ import time
 import pandas as pd
 import re
 from bsedata.bse import BSE
+import os
+import logging
+
+
+log_file = r"C:\Users\sumeet\Desktop\LargeDeals\script_log.txt"
+logging.basicConfig(filename=log_file, level=logging.INFO, format='%(asctime)s - %(message)s')
+
+logging.info("Script started")
+
 
 # Load the CSV file
 n = pd.read_csv(r"C:\Users\sumeet\Desktop\LargeDeals\MarketCap\BseStocks.csv")
 n['code'] = n['code'].astype(str)
+
 
 # Initialize BSE API
 b = BSE()
@@ -71,12 +81,14 @@ for index, row in n.iterrows():
     print(f"Processed {completed_items}/{num_items} items. "
           f"Estimated remaining time: {estimated_remaining_time:.2f} seconds")
 
+
 end_time = time.time()
 
 # Calculate total time taken
 total_time = end_time - start_time
 
-print(f"Total time taken: {total_time:.2f} seconds")
+logging.info(f"Total time taken: {total_time:.2f} seconds")
+
 
 # Convert results to DataFrame
 
@@ -89,7 +101,20 @@ n = pd.concat([n, result_df], axis=1)
 n['marketCapFull'] = n['marketCapFull'].apply(substitute_example)
 n['marketCapFull'] = n['marketCapFull'].apply(regex_replace_example)
 
-# Save the result to a new CSV file
-n.to_csv(r"C:\Users\sumeet\Desktop\LargeDeals\MarketCap\TotalMcap.csv", index=False)
+# # Save the result to a new CSV file
+# n.to_csv(r"C:\Users\sumeet\Desktop\LargeDeals\MarketCap\TotalMcap.csv", index=False)
 
-#hellohi
+# #hellohi
+
+# Define the output file path
+output_file = r"C:\Users\sumeet\Desktop\LargeDeals\MarketCap\TotalMcap.csv"
+
+# Check if the output file already exists
+if os.path.exists(output_file):
+    # If the file exists, read it into a DataFrame and append the new data
+    existing_df = pd.read_csv(output_file)
+    n = pd.concat([existing_df, n], ignore_index=True)
+
+# Save the updated DataFrame to the output CSV file
+n.to_csv(output_file, index=False)
+logging.info("Script finished successfully")
