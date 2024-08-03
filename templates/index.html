@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataFrame Display Example</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            overflow-x: auto; /* Add horizontal scroll if needed */
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            white-space: nowrap; /* Prevent line breaks */
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>DataFrame Display Example</h1>
+    <div>
+        <h2>DataFrame:</h2>
+        <!-- Display the DataFrame -->
+        {{ dataframe | safe }}
+    </div>
+    <button id="dataButton">Send DataFrame</button>
+
+    <script>
+        document.getElementById("dataButton").addEventListener("click", function() {
+            // Simulated DataFrame (replace with your actual DataFrame)
+            var data = {
+                'Name': ['Alice', 'Bob', 'Charlie'],
+                'Age': [25, 30, 35]
+            };
+
+            // Create a new form
+            var form = new FormData();
+            // Convert DataFrame to JSON string and append it as a field
+            form.append('dataframe', JSON.stringify(data));
+
+            // Send a POST request to the backend
+            fetch('/get_dataframe')
+            .then(response => response.json())
+            .then(data => {
+                // Display the DataFrame on the webpage
+                var tableHTML = "<table border='1'><tr><th>Name</th><th>Age</th></tr>";
+                data.forEach(row => {
+                    tableHTML += "<tr><td>" + row.Name + "</td><td>" + row.Age + "</td></tr>";
+                });
+                tableHTML += "</table>";
+                document.getElementById("dataDisplay").innerHTML = tableHTML;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
