@@ -119,7 +119,7 @@ n['marketCapFull'] = n['marketCapFull'].apply(regex_replace_example)
 # Define the output file path
 today = datetime.today()
 filename = f"TotalMcap_{today}.csv"
-output_path = r"C:\Users\sumeet\Desktop\LargeDeals\MarketCap"
+output_path = r"C:\Users\sumeet\Desktop\LargeDeals\MarketCap\TotalMcap"
 output_file = os.path.join(output_path, filename)
 
 # Check if the output file already exists
@@ -139,3 +139,4 @@ notification.notify(
     message="Your scheduled Python script has finished running.",
     timeout=10
 )
+
