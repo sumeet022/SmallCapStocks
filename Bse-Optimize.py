@@ -10,12 +10,12 @@ from datetime import datetime
 
 notification.notify(
     title="Script started",
-    message="Your scheduled Python script has finished running.",
+    message="Your scheduled Python script has started running.",
     timeout=10
 )
 
 log_file = r"C:\Users\sumeet\Desktop\LargeDeals\script_log.txt"
-logging.basicConfig(filename=log_file, level=logging.INFO, format='%(asctime)s - %(message)s')
+logging.basicConfig(filename=log_file, level=logging.INFO, format='%(asctime)s - %(message)s',filemode='w')
 
 logging.info("Script started")
 
@@ -107,6 +107,8 @@ result_df = pd.DataFrame(results)
 # Update original DataFrame with the new data
 n = pd.concat([n, result_df], axis=1)
 
+logging.info("result merged")
+
 # Clean up the market cap data
 n['marketCapFull'] = n['marketCapFull'].apply(substitute_example)
 n['marketCapFull'] = n['marketCapFull'].apply(regex_replace_example)
@@ -117,7 +119,7 @@ n['marketCapFull'] = n['marketCapFull'].apply(regex_replace_example)
 # #hellohi
 
 # Define the output file path
-today = datetime.today()
+today = datetime.today().strftime('%Y-%m-%d_%H-%M-%S')
 filename = f"TotalMcap_{today}.csv"
 output_path = r"C:\Users\sumeet\Desktop\LargeDeals\MarketCap\TotalMcap"
 output_file = os.path.join(output_path, filename)
