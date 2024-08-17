@@ -28,6 +28,7 @@ n['code'] = n['code'].astype(str)
 
 # Initialize BSE API
 b = BSE()
+logging.info("BSE Initialized")
 
 # Function to get data for one stock code
 def get_stock_info(x, b):

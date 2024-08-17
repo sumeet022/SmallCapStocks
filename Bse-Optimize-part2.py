@@ -9,7 +9,9 @@ for file in csv_files:
     file_path = os.path.join(folder_path, file)
     # Read the CSV file into a DataFrame
     df = pd.read_csv(file_path)
-    df['updatedOn'] = df['updatedOn'].fillna(method='ffill')
+    df['updatedOn'] = df['updatedOn'].ffill()
+    # df['updatedOn'] = df['updatedOn'].fillna(method='ffill')
+
     df.to_csv(file_path, index=False)
 
 dataframes = [pd.read_csv(os.path.join(folder_path, file)) for file in csv_files]
