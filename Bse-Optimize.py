@@ -37,13 +37,18 @@ def get_stock_info(x, b):
         return {
             'updatedOn': q.get('updatedOn', 'n/a'),
             'marketCapFull': q.get('marketCapFull', 'n/a'),
-            'marketCapFreeFloat': q.get('marketCapFreeFloat', 'n/a')
+            'marketCapFreeFloat': q.get('marketCapFreeFloat', 'n/a'),
+            'currentValue':q.get('currentValue', 'n/a'),
+            'industry':q.get('industry','n/a')
+
         }
     except Exception as e:
         return {
             'updatedOn': 'n/a',
             'marketCapFull': 'n/a',
-            'marketCapFreeFloat': 'n/a'
+            'marketCapFreeFloat': 'n/a',
+            'currentValue':'n/a',
+            'industry':'n/a'
         }
 
 # Function to remove "Cr." from text

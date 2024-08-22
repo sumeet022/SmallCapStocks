@@ -22,9 +22,9 @@ def calculate_rolling_avg(group):
 df['updatedOn'] = pd.to_datetime(df['updatedOn'], format='%d %b %y | %I:%M %p')
 # Format the datetime to only include the date
 df['updatedOn'] = df['updatedOn'].dt.strftime('%d %b %y')
-df = df[['code', 'companyName', 'updatedOn', 'marketCapFull']]
-df_unique = df.drop_duplicates(subset=['code', 'companyName', 'updatedOn', 'marketCapFull'],keep='first').reset_index(drop=True)
-df_unique = df_unique[['code', 'companyName', 'updatedOn', 'marketCapFull']]
+df = df[['code', 'companyName', 'updatedOn', 'currentValue','marketCapFull','industry']]
+df_unique = df.drop_duplicates(subset=['code', 'companyName', 'updatedOn','currentValue', 'marketCapFull','industry'],keep='first').reset_index(drop=True)
+df_unique = df_unique[['code', 'companyName', 'updatedOn', 'currentValue','marketCapFull','industry']]
 # a_grouped_sorted = a_unique.sort_values(by=['code','updatedOn']).reset_index(drop=True)
 # a_grouped_sorted
 df_unique['updatedOn'] = pd.to_datetime(df_unique['updatedOn'],errors='coerce')
